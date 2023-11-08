@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card {
+    @apply bg-white p-6 rounded-md shadow-md flex flex-col;
+  }
+
+  .chart-heading {
+    @apply text-xl font-medium mb-4 mr-1;
+  }
+}
