@@ -1,4 +1,4 @@
-import { Suspense, lazy, useState } from "react";
+import { Suspense, lazy, useMemo, useState } from "react";
 import sourceData from "./mocks/source.json";
 import { Game, Manufacturer, UnprocessedGame } from "./types";
 import { DataSourceContext } from "./context/DataSource";
@@ -21,13 +21,14 @@ function App() {
   const [manufacturer, setManufacturer] = useState<Manufacturer>(
     Manufacturer.All
   );
+  const memoedData = useMemo(() => tidy(sourceData as UnprocessedGame[]), []);
 
   function handleChangeManufacturer(e: React.ChangeEvent<HTMLSelectElement>) {
     setManufacturer(e.target.value as Manufacturer);
   }
 
   return (
-    <DataSourceContext.Provider value={tidy(sourceData as UnprocessedGame[])}>
+    <DataSourceContext.Provider value={memoedData}>
       <div className="min-h-screen bg-slate-50 pb-4">
         <header className="bg-white px-8 py-4 shadow-md">
           <h1 className="text-2xl">🎮 Gaming popularity dashboard</h1>
